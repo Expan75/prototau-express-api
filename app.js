@@ -1,8 +1,33 @@
+// Misc Imports
+const Promise = require('bluebird')
+const bodyParser = require('body-parser');
 const express = require('express');
-// require('dotenv').config();
+const mongoose = require('mongoose');
+const path = require('path');
 
+// Routes
+const datapoints = require('./routes/trackdatapoint');
+
+
+
+// Load .env file (Contains environment vars etc.)
+require('dotenv').config();
+
+// Express Setup 
 const app = express();
 const port = process.env.PORT || 8000;
+
+// DB Setup via env var (should be, "name": mongoURI)
+mongoose.connect(process.env.DB, {
+        useNewUrlParser: true
+    })
+    .then(() => console.log('DB connection established...'))
+    .catch(e => console.log(e));
+
+
+// Override default mongoose depreciated promises (to bluebird Promise: http://bluebirdjs.com/docs/getting-started.html)
+mongoose.Promise = global.Promise;
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -10,11 +35,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Express Options
+app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    // arg next can be used to have intercepting functionality (e.g. auth systems)
-    res.send('Welcome to Express');
-});
+// Force Url prefix for all routes
+app.use('/api', datapoints);
+
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

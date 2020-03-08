@@ -1,5 +1,7 @@
 
 
+# Env. Vars [SENSITIVE]
+.env
 
 # Editor/Lint Config 
 .jshintrc
