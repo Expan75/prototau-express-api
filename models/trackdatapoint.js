@@ -19,17 +19,17 @@ const trackDataPointSchema = new Schema({
     // e.g.: 
     // sensor1: Type,
 
-    // meta data
-    meta: {
-        created_at: {
-            type: Date,
-            default: Date.now
-        },
-        updated_at: {
-            type: Date,
-            default: Date.now
-        }
-    }
+    // // meta data
+    // meta: {
+    //     created_at: {
+    //         type: Date,
+    //         default: Date.now
+    //     },
+    //     updated_at: {
+    //         type: Date,
+    //         default: Date.now
+    //     }
+    // }
 });
 
 

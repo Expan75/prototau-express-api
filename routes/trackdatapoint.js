@@ -3,10 +3,10 @@ const router = express.Router();
 const TrackDataPoint = require('../models/trackdatapoint');
 const mongoose = require('mongoose');
 
-// List view
+// List view // only gets the first 25 results
 router.get('/trackdata', (req, res, next) => {
     TrackDataPoint.find({})
-        .then(data => res.json(data))
+        .then(data => res.json(data.slice(0, 25)))
         .catch(e => console.log(e));
 });
 
@@ -26,15 +26,10 @@ router.get('/trackdata/:id', (req, res, next) => {
 
 // Post
 router.post('/trackdata', (req, res, next) => {
-    if (req.body.project) {
-        TrackDataPoint.create(req.body)
-            .then(data => res.json(data))
-            .catch(e => console.log(e));
-    } else {
-        res.json({
-            error: 'Please provide valid input.'
-        });
-    }
+
+    TrackDataPoint.create(req.body)
+        .then(data => res.json(data))
+        .catch(e => console.log(e));
 });
 
 // delete speficic project
