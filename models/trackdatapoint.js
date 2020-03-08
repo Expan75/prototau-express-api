@@ -5,14 +5,15 @@ const Schema = mongoose.Schema;
 const trackDataPointSchema = new Schema({
 
     // key identifiers (note MongoDB adds PK of _id automatically)
-    ms_timestamp: String,
+    ms_timestamp: Number,
 
     // main sensor inputs
-    current: String,
-    voltage: String,
-    temperature: String,
-    pressure: String,
+    current: Number,
+    temperature: Number,
+    voltage: Number,
+    pressure: Number,
     state: String,
+    alarm: String,
 
     // add additonal sensor input below
     // e.g.: 

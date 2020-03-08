@@ -25,7 +25,7 @@ mongoose.connect(process.env.DB, {
     .catch(e => console.log(e));
 
 
-// Override default mongoose depreciated promises (to bluebird Promise: http://bluebirdjs.com/docs/getting-started.html)
+// Override default mongoose depreciated promises
 mongoose.Promise = global.Promise;
 
 
