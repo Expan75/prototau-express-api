@@ -8,3 +8,6 @@
 
 # Node Moduless
 node_modules/
+
+# Data
+/data

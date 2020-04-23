@@ -7,29 +7,23 @@ const trackDataPointSchema = new Schema({
     // key identifiers (note MongoDB adds PK of _id automatically)
     ms_timestamp: Number,
 
+    // datetimes
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
+
     // main sensor inputs
     current: Number,
     temperature: Number,
     voltage: Number,
     pressure: Number,
     state: String,
-    alarm: String,
-
-    // add additonal sensor input below
-    // e.g.: 
-    // sensor1: Type,
-
-    // // meta data
-    // meta: {
-    //     created_at: {
-    //         type: Date,
-    //         default: Date.now
-    //     },
-    //     updated_at: {
-    //         type: Date,
-    //         default: Date.now
-    //     }
-    // }
+    alarm: String
 });
 
 

@@ -66366,15 +66366,6 @@
     "alarm": "LOW_FC_PRES_DELAYED"
   },
   {
-    "ms_timestamp": "Millis",
-    "current": "Current",
-    "temperature": "Temp.",
-    "voltage": "Voltage",
-    "pressure": "Press.",
-    "state": "State",
-    "alarm": "Alarm"
-  },
-  {
     "ms_timestamp": 100,
     "current": 0,
     "temperature": 26,
