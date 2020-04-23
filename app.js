@@ -18,8 +18,9 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 // DB Setup via env var (should be, "name": mongoURI)
-mongoose.connect(process.env.DB, {
-        useNewUrlParser: true
+mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     })
     .then(() => console.log('DB connection established...'))
     .catch(e => console.log(e));
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 // Express Options
 app.use(bodyParser.json());
 
+// Routing
 // Force Url prefix for all routes
 app.use('/api', datapoints);
 

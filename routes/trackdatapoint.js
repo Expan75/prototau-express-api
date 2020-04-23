@@ -10,34 +10,34 @@ router.get('/trackdata', (req, res, next) => {
     const startDatetime = req.query.startDatetime || null;
     const endDatetime = req.query.endDatetime || null;
 
-    // turn em into ISOstrings
-    const datetimeRange = [startDatetime, endDatetime].map(datetime => new Date(datetime));
-    const [startTime, endTime] = datetimeRange;
+    // transform datetime strings into Date objects 
+    const dateRange = [startDatetime, endDatetime].map(datetime => new Date(datetime));
+    const [startDate, endDate] = dateRange;
 
     // construct query object 
     let query = {};
 
-    // TODO: cast values into eligbles for mongoDB (i.e. ISO dates) while handling multiple input
-    // constructs query with range params if they are not null
-    if ((!(startDatetime === null)) || (!(endDatetime === null))) {
+    // add range params if they are not null
+    if ((startDatetime !== null) || (endDatetime !== null)) {
         query.created_at = {};
 
-        // fill in prop value with new filter objects
-        if (!(startDatetime === null)) {
-            query.created_at.$gte = startTime.toISOString();
+        // fill in prop value with new filters if appropriate
+        if (startDatetime !== null) {
+            query.created_at.$gte = startDate;
         }
-        // similar
-        if (!(endDatetime === null)) {
-            query.created_at.$lte = endTime.toISOString();
+        if (endDatetime !== null) {
+            query.created_at.$lte = endDate;
         }
     }
 
-    console.log("logging constructed query: ", query);
-
-    // Sets result limit using given query param if present (defaults to 100)
+    // Sets result limit and asc/desc options
     const maxResults = req.query.maxResults || 100;
+    const sortOrder = req.query.sortOrder || 1; // defaults to asc
 
-    TrackDataPoint.find(query).limit(maxResults)
+    // TODO: Fix query to return in order latest to oldest 
+    TrackDataPoint.find(query).sort({
+            created_at: sortOrder
+        }).limit(maxResults)
         .then(data => res.json(data))
         .catch(e => console.log(e));
 });
