@@ -6,34 +6,36 @@ const mongoose = require('mongoose');
 // Get List
 router.get('/trackdata', (req, res, next) => {
 
-    console.log('logging query params: ', req.query);
-
-    // Gets params to construct datetime range if it exists (should be UNIX timestamps)
+    // Gets params to construct datetime range if it exists (should be UNIX timestamps or JS date objects)
     const startDatetime = req.query.startDatetime || null;
     const endDatetime = req.query.endDatetime || null;
 
-    // Sets result limit using given query param if present (defaults to 100)
-    const maxResults = req.query.maxResults || 100;
+    // turn em into ISOstrings
+    const datetimeRange = [startDatetime, endDatetime].map(datetime => new Date(datetime));
+    const [startTime, endTime] = datetimeRange;
 
     // construct query object 
     let query = {};
 
+    // TODO: cast values into eligbles for mongoDB (i.e. ISO dates) while handling multiple input
     // constructs query with range params if they are not null
-    if ((!(startDatetime === null)) || (!(startDatetime === null))) {
+    if ((!(startDatetime === null)) || (!(endDatetime === null))) {
         query.created_at = {};
 
         // fill in prop value with new filter objects
         if (!(startDatetime === null)) {
-
-            query.created_at.$gte = startDatetime;
+            query.created_at.$gte = startTime.toISOString();
         }
         // similar
         if (!(endDatetime === null)) {
-            query.created_at.$lte = endDatetime;
+            query.created_at.$lte = endTime.toISOString();
         }
     }
 
     console.log("logging constructed query: ", query);
+
+    // Sets result limit using given query param if present (defaults to 100)
+    const maxResults = req.query.maxResults || 100;
 
     TrackDataPoint.find(query).limit(maxResults)
         .then(data => res.json(data))
