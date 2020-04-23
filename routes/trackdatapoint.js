@@ -34,17 +34,13 @@ router.get('/trackdata', (req, res, next) => {
     const maxResults = req.query.maxResults || 100;
     const sortOrder = req.query.sortOrder || 1; // defaults to asc
 
-    // TODO: Fix query to return in order latest to oldest 
+    // Send query and handle callback
     TrackDataPoint.find(query).sort({
             created_at: sortOrder
         }).limit(maxResults)
         .then(data => res.json(data))
         .catch(e => console.log(e));
 });
-
-
-// $gte: startTime.getTime(),
-//     $lte: endTime.getTime()
 
 
 // Post

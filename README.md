@@ -1,6 +1,6 @@
 # Authentcation
 -
-Somethign...
+Coming soon™
 
 
 # Available endpoints	
@@ -21,10 +21,10 @@ Accepted Mehods: [GET, POST]
 
 URL params (optional):
 
-- ?startDatetime={iso_string}
-- ?endDatetime={iso_string}
-- ?limit={integer}
-- ?sortOrder={1,-1}, 1: asc (from newest), -1:desc (from oldest)
+- startDatetime={iso_string}
+- endDatetime={iso_string}
+- limit={integer}
+- sortOrder={1,-1}, 1: asc (from newest), -1:desc (from oldest)
 
 Returns all datapoints (latest to oldest) that falls within the specified range [startDatetime,endDatetime], maximum /w with. 
 
