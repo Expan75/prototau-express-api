@@ -77,7 +77,7 @@ Creates new trackdatapoints for the given valid JSON data. Does accept a list of
 **Example request:**
 	
 	$ POST http://localhost:5000/api/trackdata 
-	
+		
 		{
 			"ms_timestamp": 999995,
 			"current": 100,
@@ -108,4 +108,4 @@ Creates new trackdatapoints for the given valid JSON data. Does accept a list of
 
 ##/trackdata/:id	
 	
-Accepted Mehods: [GET, DELETE, UPDATE]
+Accepted Mehods: [GET, DELETE, PUT]

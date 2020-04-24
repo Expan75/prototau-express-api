@@ -3,16 +3,15 @@ const router = express.Router();
 const TrackDataPoint = require('../models/trackdatapoint');
 const mongoose = require('mongoose');
 
-// Get List
+// Get List // TODO: handle incorrect date formatting
 router.get('/trackdata', (req, res, next) => {
 
-    // Gets params to construct datetime range if it exists (should be UNIX timestamps or JS date objects)
+    // Gets params to construct datetime range if it exists (should be JS date objects)
     const startDatetime = req.query.startDatetime || null;
     const endDatetime = req.query.endDatetime || null;
 
     // transform datetime strings into Date objects 
-    const dateRange = [startDatetime, endDatetime].map(datetime => new Date(datetime));
-    const [startDate, endDate] = dateRange;
+    const [startDate, endDate] = [startDatetime, endDatetime].map(datetime => new Date(datetime));
 
     // construct query object 
     let query = {};
@@ -43,7 +42,7 @@ router.get('/trackdata', (req, res, next) => {
 });
 
 
-// Post
+// Post // TODO: add auth
 router.post('/trackdata', (req, res, next) => {
     TrackDataPoint.create(req.body)
         .then(data => res.json(data))
@@ -59,12 +58,16 @@ router.get('/trackdata/:id', (req, res, next) => {
         .catch(e => console.log(e));
 });
 
-// // Update detail
-// router.put('/projects/:id', (req, res, next) => {
-//     res.send('Project was updated.')
-// });
+// Update single datapoint // TODO: add auth
+router.put('/projects/:id', (req, res, next) => {
+    TrackDataPoint.findByIdAndUpdate({
+            "_id": mongoose.Types.ObjectId(req.params.id)
+        })
+        .then(data => res.json(data))
+        .catch(e => console.log(e));
+});
 
-// delete speficic project
+// delete single datapoint // TODO: add auth
 router.delete('/trackdata/:id', (req, res, next) => {
     TrackDataPoint.findByIdAndDelete({
             "_id": mongoose.Types.ObjectId(req.params.id)

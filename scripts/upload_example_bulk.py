@@ -8,7 +8,7 @@ from time import sleep
 """ NOTE: this script is not made with atomic data insertion in mind. It can fail midway through """
 
 # open .json safely 
-with open('data/example_data.json') as f:
+with open('./data/example_data.json') as f:
   data = json.load(f) # len(data) = ~15k
   
   # chunkify
