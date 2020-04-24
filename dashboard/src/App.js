@@ -1,19 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import * as d3 from 'd3';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+
+// http://localhost:5000/api/trackdata
+
 
 function App() {
-  return ( 
-    <div className = "App" >
-    <header className = "App-header">
-      <img src = {logo} className = "App-logo" alt = "logo"/>
-      <h1>Horribel    </h1>
-      <p>Edit <code> src / App.js </code> and save to reload. </p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        Learn React</a>
-      </header>
-    </div>
+  return (
+    <Router>
+      <div className="container">
+        Hello World
+      </div>
+    </Router>
   );
 }
 
